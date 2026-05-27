@@ -1,0 +1,23 @@
+-- Salas COLETIVAS
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 101', 'COLETIVA', 15);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 102', 'COLETIVA', 25);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 103', 'COLETIVA', 40);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 104', 'COLETIVA', 70);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 105', 'COLETIVA', 30);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 106', 'COLETIVA', 35);
+
+-- Salas INDIVIDUAIS
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 202', 'INDIVIDUAL', 1);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 203', 'INDIVIDUAL', 1);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 204', 'INDIVIDUAL', 1);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 205', 'INDIVIDUAL', 1);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 206', 'INDIVIDUAL', 1);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 207', 'INDIVIDUAL', 1);
+
+-- Auditórios
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Auditório Karuana', 'AUDITORIO', 100);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Auditório Samaúma', 'AUDITORIO', 150);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Auditório  Vitória-Régia', 'AUDITORIO', 200);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Auditório  Açaí', 'AUDITORIO', 250);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Auditório Tapajós', 'AUDITORIO', 300);
+INSERT INTO sala (nome, tipo, capacidade) VALUES ('Auditório Encontro das Águas', 'AUDITORIO', 400);

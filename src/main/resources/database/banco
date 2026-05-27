@@ -21,3 +21,35 @@ INSERT INTO sala (nome, tipo, capacidade) VALUES ('Auditório  Vitória-Régia',
 INSERT INTO sala (nome, tipo, capacidade) VALUES ('Auditório  Açaí', 'AUDITORIO', 250);
 INSERT INTO sala (nome, tipo, capacidade) VALUES ('Auditório Tapajós', 'AUDITORIO', 300);
 INSERT INTO sala (nome, tipo, capacidade) VALUES ('Auditório Encontro das Águas', 'AUDITORIO', 400);
+
+
+INSERT PARA RESERVA
+-- Reservas para Salas Coletivas
+INSERT INTO reserva (responsavel, data, hora_inicio, hora_fim, status, sala_id)
+VALUES ('Maria Silva', '2026-06-01', '09:00', '11:00', 'ATIVA', 1);
+
+INSERT INTO reserva (responsavel, data, hora_inicio, hora_fim, status, sala_id)
+VALUES ('João Santos', '2026-06-02', '14:00', '16:00', 'ATIVA', 2);
+
+-- Reservas para Salas Individuais
+INSERT INTO reserva (responsavel, data, hora_inicio, hora_fim, status, sala_id)
+VALUES ('Ana Costa', '2026-06-01', '10:00', '12:00', 'ATIVA', 7);
+
+INSERT INTO reserva (responsavel, data, hora_inicio, hora_fim, status, sala_id)
+VALUES ('Carlos Lima', '2026-06-03', '08:00', '09:30', 'ATIVA', 8);
+
+-- Reservas para Auditórios
+INSERT INTO reserva (responsavel, data, hora_inicio, hora_fim, status, sala_id)
+VALUES ('Empresa X', '2026-06-05', '13:00', '17:00', 'ATIVA', 13);
+
+INSERT INTO reserva (responsavel, data, hora_inicio, hora_fim, status, sala_id)
+VALUES ('Universidade Y', '2026-06-06', '09:00', '12:00', 'ATIVA', 14);
+
+
+--//////////////////////////////////////////////////////
+-- Reservas conflitantes (mesma sala, mesma data e horário)
+INSERT INTO reserva (responsavel, data, hora_inicio, hora_fim, status, sala_id)
+VALUES ('Pedro Almeida', '2026-06-01', '09:00', '11:00', 'ATIVA', 1);
+
+INSERT INTO reserva (responsavel, data, hora_inicio, hora_fim, status, sala_id)
+VALUES ('Fernanda Souza', '2026-06-05', '13:00', '17:00', 'ATIVA', 13);

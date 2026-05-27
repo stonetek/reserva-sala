@@ -2,11 +2,20 @@ package com.stonnetek.reservas.entity;
 
 import com.stonnetek.reservas.enums.TipoSala;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "sala")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Sala {
 
     @Id
@@ -25,7 +34,6 @@ public class Sala {
 
 
     @OneToMany(mappedBy = "sala", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reserva> reservas;
-
+    private List<Reserva> reservas = new ArrayList<>();
 
 }

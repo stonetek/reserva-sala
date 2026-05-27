@@ -2,12 +2,21 @@ package com.stonnetek.reservas.entity;
 
 import com.stonnetek.reservas.enums.StatusReserva;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 
 @Entity
 @Table(name = "reserva")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Reserva {
 
     @Id
@@ -30,11 +39,10 @@ public class Reserva {
     @Column(nullable = false, length = 20)
     private StatusReserva status;
 
-    // Relacionamento: cada reserva pertence a uma sala
+
     @ManyToOne
     @JoinColumn(name = "sala_id", nullable = false)
     private Sala sala;
-
 
 }
 

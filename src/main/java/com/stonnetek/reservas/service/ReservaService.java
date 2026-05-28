@@ -1,5 +1,6 @@
 package com.stonnetek.reservas.service;
 
+import com.stonnetek.reservas.dto.response.ReservaResponseDTO;
 import com.stonnetek.reservas.entity.Reserva;
 import com.stonnetek.reservas.entity.Sala;
 import com.stonnetek.reservas.enums.StatusReserva;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -19,14 +21,18 @@ public class ReservaService {
     private final ReservaRepository reservaRepository;
     private final SalaService salaService;
 
-    public Reserva criar(Reserva reserva) {
+    public Reserva criar(Reserva reserva) {LocalDate hoje = LocalDate.now(); LocalTime agora = LocalTime.now();
 
-        if (reserva.getHoraFim().isBefore(reserva.getHoraInicio())
-                || reserva.getHoraFim().equals(reserva.getHoraInicio())) {
+        if (reserva.getData().isBefore(hoje)) {
+            throw new RegraNegocioException("Não é permitido reservar datas passadas.");
+        }
 
-            throw new RegraNegocioException(
-                    "Hora fim deve ser maior que hora início."
-            );
+        if (reserva.getData().isEqual(hoje) && reserva.getHoraInicio().isBefore(agora)) {
+            throw new RegraNegocioException("Não é permitido reservar horários já passados no dia atual.");
+        }
+
+        if (reserva.getHoraFim().isBefore(reserva.getHoraInicio()) || reserva.getHoraFim().equals(reserva.getHoraInicio())) {
+            throw new RegraNegocioException("Hora fim deve ser maior que hora início.");
         }
 
         Sala sala = salaService.buscarPorId(reserva.getSala().getId());
@@ -39,9 +45,7 @@ public class ReservaService {
         );
 
         if (conflito) {
-            throw new RegraNegocioException(
-                    "Já existe uma reserva nesse horário."
-            );
+            throw new RegraNegocioException("Já existe uma reserva nesse horário.");
         }
 
         reserva.setSala(sala);
@@ -49,6 +53,8 @@ public class ReservaService {
 
         return reservaRepository.save(reserva);
     }
+
+
 
     public Reserva cancelar(Long id) {
 

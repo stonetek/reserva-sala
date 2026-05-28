@@ -26,4 +26,5 @@ public class ReservaResponseDTO {
     private Long salaId;
 
     private String nomeSala;
+
 }

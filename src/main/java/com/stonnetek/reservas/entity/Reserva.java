@@ -1,5 +1,6 @@
 package com.stonnetek.reservas.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.stonnetek.reservas.enums.StatusReserva;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,8 @@ public class Reserva {
     @Column(nullable = false, length = 100)
     private String responsavel;
 
-    @Column(nullable = false)
+    @Column(name = "data_reserva", nullable = false)
+
     private LocalDate data;
 
     @Column(name = "hora_inicio", nullable = false)
@@ -42,6 +44,7 @@ public class Reserva {
 
     @ManyToOne
     @JoinColumn(name = "sala_id", nullable = false)
+    @JsonBackReference
     private Sala sala;
 
 }

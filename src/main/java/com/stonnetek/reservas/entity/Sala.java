@@ -1,5 +1,6 @@
 package com.stonnetek.reservas.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.stonnetek.reservas.enums.TipoSala;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,7 @@ public class Sala {
 
 
     @OneToMany(mappedBy = "sala", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Reserva> reservas = new ArrayList<>();
 
 }

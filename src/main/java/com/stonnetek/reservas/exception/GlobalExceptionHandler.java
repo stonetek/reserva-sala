@@ -17,8 +17,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RecursoNaoEncontradoException.class)
     public ResponseEntity<String> handleNaoEncontrado(
-            RecursoNaoEncontradoException ex
-    ) {
+            RecursoNaoEncontradoException ex) {
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -26,19 +25,21 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(RegraNegocioException.class)
-    public ResponseEntity<String> handleRegraNegocio(
-            RegraNegocioException ex
-    ) {
+    public ResponseEntity<ApiErrorResponse> handleRegraNegocio(RegraNegocioException ex) {
+        ApiErrorResponse response =
+                ApiErrorResponse.builder()
+                        .timestamp(LocalDateTime.now())
+                        .status(HttpStatus.BAD_REQUEST.value())
+                        .error("Regra de negócio")
+                        .message(ex.getMessage())
+                        .build();
 
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(ex.getMessage());
+        return ResponseEntity.badRequest().body(response);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidationErrorResponse> handleValidation(
-            MethodArgumentNotValidException ex
-    ) {
+            MethodArgumentNotValidException ex) {
 
         Map<String, String> errors = new HashMap<>();
 
@@ -60,4 +61,5 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(response);
     }
+
 }

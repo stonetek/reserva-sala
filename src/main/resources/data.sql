@@ -1,3 +1,6 @@
+-- =========================
+-- SALAS
+-- =========================
 -- Salas COLETIVAS
 INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 101', 'COLETIVA', 15);
 INSERT INTO sala (nome, tipo, capacidade) VALUES ('Sala 102', 'COLETIVA', 25);
@@ -23,7 +26,10 @@ INSERT INTO sala (nome, tipo, capacidade) VALUES ('Auditório Tapajós', 'AUDITO
 INSERT INTO sala (nome, tipo, capacidade) VALUES ('Auditório Encontro das Águas', 'AUDITORIO', 400);
 
 
-INSERT PARA RESERVA
+-- =========================
+-- RESERVAS
+-- =========================
+
 -- Reservas para Salas Coletivas
 INSERT INTO reserva (responsavel, data_reserva, hora_inicio, hora_fim, status, sala_id)
 VALUES ('Maria Silva', '2026-06-01', '09:00', '11:00', 'ATIVA', 1);
@@ -44,12 +50,3 @@ VALUES ('Empresa X', '2026-06-05', '13:00', '17:00', 'ATIVA', 13);
 
 INSERT INTO reserva (responsavel, data_reserva, hora_inicio, hora_fim, status, sala_id)
 VALUES ('Universidade Y', '2026-06-06', '09:00', '12:00', 'ATIVA', 14);
-
-
---//////////////////////////////////////////////////////
--- Reservas conflitantes (mesma sala, mesma data e horário) --Pensamento futuro criar trigger para evitar insert direto no banco
-INSERT INTO reserva (responsavel, data_reserva, hora_inicio, hora_fim, status, sala_id)
-VALUES ('Pedro Almeida', '2026-06-01', '09:00', '11:00', 'ATIVA', 1);
-
-INSERT INTO reserva (responsavel, data_reserva, hora_inicio, hora_fim, status, sala_id)
-VALUES ('Fernanda Souza', '2026-06-05', '13:00', '17:00', 'ATIVA', 13);

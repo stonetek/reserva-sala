@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 
-    List<Reserva> findByData(LocalDate data);
+    List<Reserva> findByDataOrderByHoraInicio(LocalDate data);
 
     @Query("""
         SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END

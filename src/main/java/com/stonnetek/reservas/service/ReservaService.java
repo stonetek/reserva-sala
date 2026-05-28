@@ -59,15 +59,20 @@ public class ReservaService {
     public Reserva cancelar(Long id) {
 
         Reserva reserva = reservaRepository.findById(id)
-                .orElseThrow(() ->
-                        new RecursoNaoEncontradoException("Reserva não encontrada."));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Reserva não encontrada."));
+
+        if (reserva.getStatus() == StatusReserva.CANCELADA) {
+            throw new RegraNegocioException("A reserva já está cancelada.");
+        }
 
         reserva.setStatus(StatusReserva.CANCELADA);
 
         return reservaRepository.save(reserva);
     }
 
+
+
     public List<Reserva> agendaDiaria(LocalDate data) {
-        return reservaRepository.findByData(data);
+        return reservaRepository.findByDataOrderByHoraInicio(data);
     }
 }

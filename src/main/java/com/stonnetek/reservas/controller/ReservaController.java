@@ -7,9 +7,12 @@ import com.stonnetek.reservas.entity.Reserva;
 import com.stonnetek.reservas.entity.Sala;
 import com.stonnetek.reservas.service.ReservaService;
 import com.stonnetek.reservas.service.SalaService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -23,20 +26,31 @@ public class ReservaController {
     private final ReservaService reservaService;
     private final SalaService salaService;
 
+    @Operation(summary = "Criar nova reserva")
     @PostMapping
-    public ReservaResponseDTO criar (@Valid @RequestBody ReservaRequestDTO dto) {
+    public ResponseEntity<ReservaResponseDTO> criar (@Valid @RequestBody ReservaRequestDTO dto) {
         Sala sala = salaService.buscarPorId(dto.getSalaId());
         Reserva reserva = ReservaMapper.toEntity(dto, sala);
-        return ReservaMapper.toDTO( reservaService.criar(reserva));
+        ReservaResponseDTO response = ReservaMapper.toDTO(reservaService.criar(reserva));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @Operation(summary = "Cancelar reserva")
     @PatchMapping("/{id}/cancelar")
-    public Reserva cancelar(@PathVariable Long id) {
-        return reservaService.cancelar(id);
+    public ResponseEntity<ReservaResponseDTO> cancelar(@PathVariable Long id) {
+        Reserva reserva = reservaService.cancelar(id);
+        return ResponseEntity.ok(ReservaMapper.toDTO(reserva));
     }
 
+    @Operation(summary = "Consultar agenda diária")
     @GetMapping("/agenda")
-    public List<Reserva> agendaDiaria( @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
-        return reservaService.agendaDiaria(data);
+    public ResponseEntity<List<ReservaResponseDTO>> agendaDiaria( @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
+        List<ReservaResponseDTO> response =
+                reservaService.agendaDiaria(data)
+                        .stream()
+                        .map(ReservaMapper::toDTO)
+                        .toList();
+        return ResponseEntity.ok(response);
     }
 }
